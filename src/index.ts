@@ -3,7 +3,7 @@ import { startStandaloneServer } from '@apollo/server/standalone';
 import { typeDefs } from './schema.js';
 import { resolvers } from './resolvers.js';
 import { TrackAPI } from './datasources/TrackAPI.js';
-import { GhibiAPI } from './datasources/ghibiAPI.js';
+import { GhibiAPI } from './datasources/GhibiAPI.js';
 
  const server = new ApolloServer({
   typeDefs,

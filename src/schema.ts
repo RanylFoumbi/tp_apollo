@@ -17,6 +17,8 @@ export const typeDefs = gql`
     title: String!
     author: Author!
     thumbnail: String
+    numberOfViews: Int
+    numberOfLikes: Int
   }
 
   type Author {
@@ -34,7 +36,7 @@ export const typeDefs = gql`
   type People {
     id: ID,
     name: String,
-    eye_color: String,
+    eyeColor: String,
     films: [Film]
   }
  
@@ -47,6 +49,25 @@ export const typeDefs = gql`
     getTracks: [Track!]!
     getFilms: [Film!]!
     getPeople: [People!]!
+  }
+
+  type IncrementTrackViewsResponse {
+    code: Int!
+    success: Boolean!
+    message: String!
+    track: Track
+  }
+
+  type IncrementTrackLikesResponse {
+    code: Int!
+    success: Boolean!
+    message: String!
+    track: Track
+  }
+
+  type Mutation {
+    incrementTrackViews(id: ID!): IncrementTrackViewsResponse!
+    incrementTrackLikes(id: ID!): IncrementTrackLikesResponse!
   }
  
   enum Speciality {

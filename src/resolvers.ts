@@ -58,6 +58,52 @@ export const resolvers: Resolvers = {
       return context.dataSources.ghibiaApi.getFilms()
     }
   },
+  
+  Mutation: {
+    incrementTrackViews: async (parent, args, context, info) => {
+      const {id} = args
+      console.log('id', id)
+      try {
+        const track = await context.dataSources.trackApi.incrementTrackViews(id)
+        const message = `Successfully incremented number of views for track ${id}`
+  
+        return {
+          code: 200,
+          message,
+          success: true,
+          track,
+        }
+      } catch(err) {
+        return {
+          code: 304,
+          message: (err as Error)?.message ?? 'Resource not modified, an internal error occured',
+          success: false,
+          track: null,
+        }
+      }
+    },
+    incrementTrackLikes: async (parent, args, context, info) => {
+      const {id} = args
+      try {
+        const track = await context.dataSources.trackApi.incrementTrackLikes(id)
+        const message = `Successfully incremented number of likes for track ${id}`
+  
+        return {
+          code: 200,
+          message,
+          success: true,
+          track,
+        }
+      } catch(err) {
+        return {
+          code: 304,
+          message: (err as Error)?.message ?? 'Resource not modified, an internal error occured',
+          success: false,
+          track: null,
+        }
+      }
+    }
+  },
 
   Track: {
     author: ({authorId}, args, context, info) => {
@@ -66,7 +112,8 @@ export const resolvers: Resolvers = {
   },
 
   People: {
-   films: ({films}, args, context, info) => { 
+   eyeColor:({eye_color}, args, context) => eye_color,
+   films: ({films}, args, context, info) => {
     const ids = films.map(f => f.split('/').pop())
       return context.dataSources.ghibiaApi.getFilmsById(ids)
     }
