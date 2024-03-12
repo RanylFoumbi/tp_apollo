@@ -74,14 +74,12 @@ export const resolvers: Resolvers = {
 
   Film: {
     people: ({people}, args, context, info) => {
-   
       const uuidRegex = /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/;
       const ids = people.map(f => {
         const match = f.match(uuidRegex);
         return match ? match[0] : null;
       }).filter(Boolean);
       
-      console.log({ids})
       return context.dataSources.ghibiaApi.getPeopleById(ids)
     }
   },
