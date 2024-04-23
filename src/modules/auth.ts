@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import * as bcrypt from "bcrypt";
 
 export type JWTUser = {
-    id: number;
+    id: string;
     username: string;
 };
  

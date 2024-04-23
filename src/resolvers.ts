@@ -1,9 +1,9 @@
 import { GraphQLError } from "graphql";
 import { getClosestColor } from "./colors.js";
-import { CreateUserResponse, Resolvers, Speciality } from "./types.js";
+import { Resolvers, Speciality } from "./types.js";
 import { createUser } from "./mutation/user/createUser.js";
+import { signInUser } from "./mutation/user/signInUser.js";
 
- 
 const doctorsData = [
   {
     id: '1',
@@ -109,6 +109,7 @@ export const resolvers: Resolvers = {
       }
     },
     createUser,
+    signInUser,
   },
 
   Track: {

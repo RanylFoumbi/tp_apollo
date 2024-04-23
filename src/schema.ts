@@ -69,6 +69,7 @@ export const typeDefs = gql`
     incrementTrackViews(id: ID!): IncrementTrackViewsResponse!
     incrementTrackLikes(id: ID!): IncrementTrackLikesResponse!
     createUser(username: String!, password: String!): CreateUserResponse!
+    signInUser(username: String!, password: String!): SignInUserResponse!
   }
  
   enum Speciality {
@@ -81,6 +82,13 @@ export const typeDefs = gql`
     success: Boolean!
     message: String!
     user: User
+  }
+
+  type SignInUserResponse {
+    code: Int!
+    success: Boolean!
+    message: String!
+    token: String
   }
   
   type User {
