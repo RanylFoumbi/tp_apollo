@@ -68,10 +68,23 @@ export const typeDefs = gql`
   type Mutation {
     incrementTrackViews(id: ID!): IncrementTrackViewsResponse!
     incrementTrackLikes(id: ID!): IncrementTrackLikesResponse!
+    createUser(username: String!, password: String!): CreateUserResponse!
   }
  
   enum Speciality {
     PSYCHOLOGIST
     OPHTALMOLOGIST
+  }
+
+  type CreateUserResponse {
+    code: Int!
+    success: Boolean!
+    message: String!
+    user: User
+  }
+  
+  type User {
+    id: ID!
+    username: String!
   }
 `;

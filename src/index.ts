@@ -4,6 +4,8 @@ import { typeDefs } from './schema.js';
 import { resolvers } from './resolvers.js';
 import { TrackAPI } from './datasources/TrackAPI.js';
 import { GhibiAPI } from './datasources/GhibiAPI.js';
+import { getUser } from './modules/auth.js';
+import db from './datasources/db.js';
 
  const server = new ApolloServer({
   typeDefs,
@@ -12,13 +14,17 @@ import { GhibiAPI } from './datasources/GhibiAPI.js';
  
 const { url } = await startStandaloneServer(server, {
   listen: { port: 4000 },
-  context: async () => {
+  context: async ({ req }) => {
+    const token = (req.headers.authorization)?.split('Bearer ')?.[1];
+    const user = token ? getUser(token) : null;
     const {cache} = server
     return {
       dataSources: {
         trackApi: new TrackAPI({cache}),
-        ghibiaApi: new GhibiAPI({cache})
-      }
+        ghibiaApi: new GhibiAPI({cache}),
+        db
+      },
+      user,
     }
   }
 });

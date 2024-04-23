@@ -1,6 +1,7 @@
 import { GraphQLError } from "graphql";
 import { getClosestColor } from "./colors.js";
-import { Resolvers, Speciality } from "./types.js";
+import { CreateUserResponse, Resolvers, Speciality } from "./types.js";
+import { createUser } from "./mutation/user/createUser.js";
 
  
 const doctorsData = [
@@ -20,6 +21,9 @@ const doctorsData = [
     speciality: Speciality.Ophtalmologist,
   },
 ];
+
+
+
 export const resolvers: Resolvers = {
   Query: {
     doctors: (parent, args, context, info) => {
@@ -56,7 +60,8 @@ export const resolvers: Resolvers = {
     },
     getFilms: (parent, args, context, info) => {
       return context.dataSources.ghibiaApi.getFilms()
-    }
+    },
+   
   },
   
   Mutation: {
@@ -102,7 +107,8 @@ export const resolvers: Resolvers = {
           track: null,
         }
       }
-    }
+    },
+    createUser,
   },
 
   Track: {
@@ -137,5 +143,5 @@ export const resolvers: Resolvers = {
         zipCode: `${parent.id}000`
       }]
     }
-  }
+  },
  };
